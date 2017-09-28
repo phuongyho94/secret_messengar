@@ -10,14 +10,31 @@ var config = {
     path: BUILD_DIR,
     filename: 'bundle.js'
   },
-  module : {
-    loaders : [
+  module: {
+    loaders: [
       {
         test : /\.jsx?/,
-        include : APP_DIR,
-        loader : 'babel-loader'
+        loader: 'babel-loader',
+      },
+
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, // default is false
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: "[name]--[local]--[hash:base64:8]"
+            }
+          },
+          "postcss-loader"
+        ]
       }
-    ]
+  ]
+
   }
 };
 
